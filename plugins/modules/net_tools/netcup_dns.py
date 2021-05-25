@@ -45,7 +45,7 @@ options:
   type:
     description:
       - Record type
-    choices: ['A', 'AAAA', 'MX', 'CNAME', 'CAA', 'SRV', 'TXT', 'TLSA', 'NS', 'DS']
+    choices: ['A', 'AAAA', 'MX', 'CNAME', 'CAA', 'SRV', 'TXT', 'TLSA', 'NS', 'DS', 'OPENPGPKEY', 'SMIMEA']
     required: True
     type: str
   value:
@@ -72,7 +72,7 @@ options:
     choices: [ 'present', 'absent' ]
     type: str
 requirements:
-  - "nc-dnsapi >= 0.1.3"
+  - "nc-dnsapi >= 0.1.5"
 author: "Nicolai Buchwitz (@nbuchwitz)"
 
 '''
@@ -187,7 +187,8 @@ def main():
 
             domain=dict(required=True),
             record=dict(required=False, default='@', aliases=['name']),
-            type=dict(required=True, choices=['A', 'AAAA', 'MX', 'CNAME', 'CAA', 'SRV', 'TXT', 'TLSA', 'NS', 'DS']),
+            type=dict(required=True, choices=['A', 'AAAA', 'MX', 'CNAME', 'CAA', 'SRV', 'TXT',
+                                              'TLSA', 'NS', 'DS', 'OPENPGPKEY', 'SMIMEA']),
             value=dict(required=True),
             priority=dict(required=False, type='int'),
             solo=dict(required=False, type='bool', default=False),
